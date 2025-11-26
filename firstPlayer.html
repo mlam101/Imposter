@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Player Announcement</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>First Player</h1>
+        <h2 id="firstPlayerName"></h2>
+        <button onclick="startNewGame()">Start New Game</button>
+    </div>
+
+    <script>
+        function startNewGame() {
+            window.location.href = 'imposter.html'; // Redirect to the game setup page
+        }
+
+        // Get the first player name from local storage
+        document.addEventListener('DOMContentLoaded', () => {
+            const firstPlayerName = sessionStorage.getItem('firstPlayerKey');
+            document.getElementById('firstPlayerName').textContent = firstPlayerName ? `${firstPlayerName} goes first!` : 'No player selected.';
+        });
+    </script>
+
+</body>
+</html>

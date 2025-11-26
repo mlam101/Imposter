@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impostor Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container" id="setupScreen">
+        <h1>Game Setup</h1>
+        <label for="names">Player Names (one per line):</label>
+        <textarea id="names" rows="5" placeholder="Name 1&#10;Name 2&#10;..."></textarea>
+        <label for="wordSet">Select a Word Set:</label>
+        <select id="wordSet" onchange="updateWordDisplay()">
+            <option value="">-- Custom Words --</option>
+            <option value="animals">Animals</option>
+            <option value="movies">Movies</option>
+            <option value="cities">Cities</option>
+            <option value="professions">Professions</option>
+            <option value="sports">Sports</option>
+        </select>
+        <label for="words">Words/Concepts for Players (one per line):</label>
+        <textarea id="words" rows="3" placeholder="Word 1&#10;Word 2&#10;..."></textarea>
+        <label for="imposterCount">Number of Imposters:</label>
+        <input type="number" id="imposterCount" min="1" value="1">
+        <button onclick="startGame()">Start Game</button>
+    </div>
+
+    <div class="container hidden" id="assignmentScreen">
+        <h1>Role Assignment</h1>
+        <p>Pass the device around. Each player, tap your name to view your role privately.</p>
+        <div id="playerList"></div>
+    </div>
+
+    <div class="container hidden" id="roleRevealScreen">
+        <h2 id="playerNameDisplay">Player Name</h2>
+        <div id="roleDisplay">Your Role: Role Name</div>
+        <button onclick="hideRole()">OK, Hide Role</button>
+    </div>
+
+    <!-- Link the JavaScript file -->
+    <script src="app.js"></script>
+
+</body>
+</html>
