@@ -2,6 +2,7 @@ let players = [];
 let words = [];
 let imposterCount = 0;
 let selectedWord = "";
+let trollModeEnabled = false;
 
 const wordSets = {
     clashroyale: [
@@ -39,10 +40,19 @@ function isMobileDevice() {
     }
 }
 
+function toggleTrollMode() {
+    trollModeEnabled = document.getElementById('trollMode').checked;
+    const imposterCountInput = document.getElementById('imposterCount');
+    
+    // Disable imposter count input when troll mode is enabled
+    imposterCountInput.disabled = trollModeEnabled;
+}
+
 function startGame() {
     const namesInput = document.getElementById('names').value;
     const wordsInput = document.getElementById('words').value;
     imposterCount = parseInt(document.getElementById('imposterCount').value);
+    trollModeEnabled = document.getElementById('trollMode').checked;
 
     // Split inputs by newline, trim whitespace, and filter out empty entries
     players = namesInput.split('\n').map(name => name.trim()).filter(name => name.length > 0);
@@ -53,8 +63,13 @@ function startGame() {
     localStorage.setItem('words', JSON.stringify(words));
 
     console.log(players.length, words.length, imposterCount);
-    if (players.length < 3 || players.length <= imposterCount) {
-        alert("Please enter at least 3 players and ensure the number of imposters is less than the total players.");
+    if (players.length < 3) {
+        alert("Please enter at least 3 players.");
+        return;
+    }
+
+    if (!trollModeEnabled && players.length <= imposterCount) {
+        alert("Please ensure the number of imposters is less than the total players.");
         return;
     }
 
@@ -71,14 +86,22 @@ function assignRoles() {
     selectedWord = words[Math.floor(Math.random() * words.length)];
     const playerRoles = Array(players.length).fill('Common Role');
 
-    // Assign Imposter roles randomly
-    for (let i = 0; i < imposterCount; i++) {
-        let assigned = false;
-        while (!assigned) {
-            const randomIndex = Math.floor(Math.random() * players.length);
-            if (playerRoles[randomIndex] === 'Common Role') {
-                playerRoles[randomIndex] = 'Imposter';
-                assigned = true;
+    // Check if troll mode activates (1/8 chance)
+    if (trollModeEnabled && Math.random() < 1/8) {
+        // Everyone is an imposter!
+        for (let i = 0; i < players.length; i++) {
+            playerRoles[i] = 'Imposter';
+        }
+    } else {
+        // Assign Imposter roles randomly
+        for (let i = 0; i < imposterCount; i++) {
+            let assigned = false;
+            while (!assigned) {
+                const randomIndex = Math.floor(Math.random() * players.length);
+                if (playerRoles[randomIndex] === 'Common Role') {
+                    playerRoles[randomIndex] = 'Imposter';
+                    assigned = true;
+                }
             }
         }
     }

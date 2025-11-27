@@ -26,6 +26,14 @@
         <textarea id="words" rows="3" placeholder="Word 1&#10;Word 2&#10;..."></textarea>
         <label for="imposterCount">Number of Imposters:</label>
         <input type="number" id="imposterCount" min="1" value="1">
+        
+        <div class="troll-mode-toggle">
+            <label for="trollMode">
+                <input type="checkbox" id="trollMode" onchange="toggleTrollMode()">
+                🎭 Troll Mode (1/8 chance everyone is imposter!)
+            </label>
+        </div>
+        
         <button onclick="startGame()">Start Game</button>
     </div>
 

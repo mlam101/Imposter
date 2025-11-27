@@ -205,6 +205,30 @@ button:hover {
     color: #5cb85c;
 }
 
+.troll-mode-toggle {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #fff3cd;
+    border: 2px solid #ffc107;
+    border-radius: 6px;
+}
+
+.troll-mode-toggle label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    color: #333;
+    margin: 0;
+}
+
+.troll-mode-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
 /* Mobile and small screen adjustments */
 @media (max-width: 600px) {
     body {
