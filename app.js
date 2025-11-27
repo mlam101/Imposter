@@ -29,6 +29,16 @@ const wordSets = {
     ]
 };
 
+// Detect whether the current device is likely a mobile/touch device
+function isMobileDevice() {
+    try {
+        return /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent) ||
+            (window.matchMedia && window.matchMedia('(pointer:coarse)').matches);
+    } catch (e) {
+        return false;
+    }
+}
+
 function startGame() {
     const namesInput = document.getElementById('names').value;
     const wordsInput = document.getElementById('words').value;
@@ -144,8 +154,17 @@ function hideRole() {
 
 // Load names and words from local storage on page load
 document.addEventListener('DOMContentLoaded', () => {
-    const savedNames = JSON.parse(localStorage.getItem('playerNames'));
-    const savedWords = JSON.parse(localStorage.getItem('words'));
+    // If device looks like mobile, add a class so CSS can adapt and increase textarea rows
+    if (isMobileDevice()) {
+        document.body.classList.add('mobile');
+        const namesTextarea = document.getElementById('names');
+        const wordsTextarea = document.getElementById('words');
+        if (namesTextarea) namesTextarea.rows = Math.max(6, namesTextarea.rows || 5);
+        if (wordsTextarea) wordsTextarea.rows = Math.max(4, wordsTextarea.rows || 3);
+    }
+
+    const savedNames = JSON.parse(localStorage.getItem('playerNames') || 'null');
+    const savedWords = JSON.parse(localStorage.getItem('words') || 'null');
 
     if (savedNames) {
         document.getElementById('names').value = savedNames.join('\n');

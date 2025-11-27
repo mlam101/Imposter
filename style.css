@@ -204,3 +204,65 @@ button:hover {
     background-color: #ccffcc;
     color: #5cb85c;
 }
+
+/* Mobile and small screen adjustments */
+@media (max-width: 600px) {
+    body {
+        padding: 12px;
+    }
+
+    .container {
+        padding: 20px;
+        width: 100%;
+        max-width: 420px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 1.6em;
+    }
+
+    .subtitle {
+        font-size: 1em;
+    }
+
+    input[type="text"], input[type="number"], textarea, select {
+        font-size: 1.05em;
+        padding: 12px;
+    }
+
+    button, .btn {
+        padding: 14px 18px;
+        font-size: 1.05em;
+    }
+
+    #playerList {
+        margin-top: 12px;
+    }
+
+    .player-name {
+        padding: 14px;
+        font-size: 1.05em;
+        border-radius: 8px;
+    }
+
+    #roleDisplay {
+        padding: 18px;
+        font-size: 1.05em;
+    }
+}
+
+/* Class applied by JS for mobile-specific tweaks if device detection prefers it */
+.mobile .container {
+    max-width: 520px; /* allow slightly larger container on some mobile widths */
+}
+
+.mobile input[type="number"] {
+    -moz-appearance: textfield; /* avoid small spinner in some UAs */
+}
+
+/* Improve contrast/tap visibility when a player has viewed their role */
+.player-name.viewed {
+    opacity: 0.6;
+}
